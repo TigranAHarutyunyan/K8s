@@ -26,7 +26,7 @@ resource "azurerm_container_registry_task" "acrt" {
     architecture = "amd64"
   }
   docker_step {
-    dockerfile_path      = "../Dockerfile"
+    dockerfile_path      = "app/Dockerfile"
     context_path         = var.context_path
     context_access_token = var.context_access_token
     image_names          = ["flask-redis-app:v1"]
@@ -36,3 +36,4 @@ resource "azurerm_container_registry_task" "acrt" {
 resource "azurerm_container_registry_task_schedule_run_now" "app_image" {
   container_registry_task_id = azurerm_container_registry_task.acrt.id
 }
+
