@@ -11,13 +11,6 @@ resource "azurerm_role_assignment" "acr-push" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPush"
 }
-
-resource "azurerm_role_assignment" "aks_acr_pull" {
-  principal_id                     = data.azurerm_client_config.current.id
-  scope                            = azurerm_container_registry.acr.id
-  role_definition_name             = "AcrPull"
-  skip_service_principal_aad_check = false
-}
 resource "azurerm_container_registry_task" "acrt" {
   container_registry_id = azurerm_container_registry.acr.id
   name                  = "build-flask-app"
@@ -26,7 +19,7 @@ resource "azurerm_container_registry_task" "acrt" {
     architecture = "amd64"
   }
   docker_step {
-    dockerfile_path      = "app/Dockerfile"
+    dockerfile_path      = "Dockerfile"
     context_path         = var.context_path
     context_access_token = var.context_access_token
     image_names          = ["flask-redis-app:v1"]

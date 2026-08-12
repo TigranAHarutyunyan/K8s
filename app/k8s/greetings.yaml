@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: greetings-deployment
+spec:
+    selector:
+        matchLabels:
+            app: greetings-pods
+    template:
+        metadata:
+            labels:
+                app: greetings-pods
+        spec:
+            nodeSelector:
+                workload: frontendpool
+            containers:
+                - name: greetings
+                  image: acrj5tku7ra.azurecr.io/flask-redis-app:v1
+                  ports:
+                      - containerPort: 5000
+                  env:
+                      - name: NAME
+                        value: "Tigran"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: greetings
+spec:
+    type: LoadBalancer
+    selector:
+        app: greetings-pods
+    ports:
+        - port: 5000
+          targetPort: 5000

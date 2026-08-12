@@ -19,6 +19,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "frontend" {
   vm_size               = "Standard_B2s"
   node_count            = 1
   mode                  = "User"
+  node_labels = {
+    workload = "frontendpool"
+  }
 }
 resource "azurerm_kubernetes_cluster_node_pool" "backend" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
@@ -26,4 +29,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "backend" {
   vm_size               = "Standard_B2s"
   node_count            = 1
   mode                  = "User"
+  node_labels = {
+    workload = "backendpool"
+  }
 }
