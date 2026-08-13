@@ -13,4 +13,5 @@ variable "context_path" {
 variable "context_access_token" {
   type        = string
   description = "PAT of gitHub"
+  sensitive   = true
 }

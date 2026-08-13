@@ -6,7 +6,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name       = "system"
     node_count = 1
-    vm_size    = "Standard_B2s"
+    vm_size    = "Standard_D2s_v7"
     type       = "VirtualMachineScaleSets"
   }
   identity {
@@ -16,7 +16,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 resource "azurerm_kubernetes_cluster_node_pool" "frontend" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   name                  = "frontendpool"
-  vm_size               = "Standard_B2s"
+  vm_size               = "Standard_D2s_v7"
   node_count            = 1
   mode                  = "User"
   node_labels = {
@@ -26,7 +26,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "frontend" {
 resource "azurerm_kubernetes_cluster_node_pool" "backend" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   name                  = "backendpool"
-  vm_size               = "Standard_B2s"
+  vm_size               = "Standard_D2s_v7"
   node_count            = 1
   mode                  = "User"
   node_labels = {

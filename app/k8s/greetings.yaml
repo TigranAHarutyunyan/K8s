@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
     name: greetings-deployment
 spec:
+    replicas: 4
     selector:
         matchLabels:
             app: greetings-pods
@@ -31,5 +32,5 @@ spec:
     selector:
         app: greetings-pods
     ports:
-        - port: 5000
+        - port: 80
           targetPort: 5000
